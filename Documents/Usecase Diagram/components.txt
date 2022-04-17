@@ -1,0 +1,59 @@
+Payment Service
+  -	Add Payment
+  -	Delete Rejected Payments
+  -	Update payment records
+  -	View Payment details
+  -	View Payment by id details*
+
+User Service 
+  -	User Registration
+  -     Login
+  -     view profile
+  -	Update  user profile
+  -	Remove inactive users
+  -	View user list
+  -	Get user details by Id*
+  -	Validate user details(in login)*
+  -	Reset password(password forgotten)*
+
+Bill Service
+
+  * (Monitor the power consumption using a form )*
+  -	Create Bill(Calculation) 
+  -	Delete Bills
+  -	Update Bill records
+  -	View Bills
+  -	View Bills by id details*
+
+Support Service
+
+  - Complaints
+  -     Add inquiry/ Complaint
+  -     Update inquiry/ Complaint
+  -     View Complaints
+  -     Delete Complaints
+  -     View complaints by id
+
+
+Overdue Bill Service
+
+  - Red bill
+  -     Add users with overdue payments
+  -     Update overdue payment details
+  -     View overdue consumer/payment details
+  -     Delete overdue consumers from the list(After making a payment)
+  -     View overdue consumer/payment details by id
+
+
+
+
+
+GITHUB
+
+update readme file
+branches
+
+
+
+Diagrams
+
