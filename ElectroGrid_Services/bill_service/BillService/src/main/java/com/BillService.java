@@ -21,6 +21,15 @@ public class BillService {
 
 	Bill bill = new Bill();
 	
+	@GET
+	@Path("/")
+	@Produces(MediaType.TEXT_HTML)
+	
+	public String readBills()
+	{
+		return bill.readBills();
+	}
+	
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -36,4 +45,5 @@ public class BillService {
 	 String output = bill.insertBill(electricityAccountNo, accountHolderName, accountHolderAddress, billMonth, units);
 	 return output;
 	}
+	
 }

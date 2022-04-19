@@ -90,7 +90,7 @@ public class Bill {
 				 
 				 // Prepare the html table to be displayed
 				 
-				 output = "<table border='1'><tr><th>Electricity Account Number</th> " + "<th>Account Holder Name</th>" + "<th>Account Holder Address</th>" + "<th>Bill Month</th>" + "<th>Payment Amount</th>" +"<th>Update</th><th>Remove</th></tr>";
+				 output = "<table border='1'><tr><th>Electricity Account Number</th> " + "<th>Account Holder Name</th>" + "<th>Account Holder Address</th>" + "<th>Bill Month</th>" +  "<th>Units</th>" + "<th>Payment Amount</th>" +"<th>Update</th><th>Remove</th></tr>";
 			
 				 String query = "select * from bill";
 				 Statement stmt = con.createStatement();
@@ -104,6 +104,7 @@ public class Bill {
 					 String accountHolderName = rs.getString("accountHolderName");
 					 String accountHolderAddress = rs.getString("accountHolderAddress");
 					 String billMonth = rs.getString("billMonth");
+					 String units = Double.toString(rs.getDouble("units"));
 					 String paymentAmount = Double.toString(rs.getDouble("paymentAmount"));
 					 
 				 // Add into the html table
@@ -111,6 +112,7 @@ public class Bill {
 					 output += "<td>" + accountHolderName + "</td>";
 					 output += "<td>" + accountHolderAddress + "</td>";
 					 output += "<td>" + billMonth + "</td>";
+					 output += "<td>" + units + "</td>";
 					 output += "<td>" + paymentAmount + "</td>";
 					 
 				 // buttons

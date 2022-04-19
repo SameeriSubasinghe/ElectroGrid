@@ -76,4 +76,61 @@ public class Bill {
 		return output; 
 		}
 		
+		
+		public String readBills()
+		   {
+			 String output = "";
+			 
+			 try
+		     {
+				 Connection con = connect();
+				 if (con == null)
+				 {
+					 return "Error while connecting to the database for reading."; 
+				 }
+				 
+				 // Prepare the html table to be displayed
+				 
+				 output = "<table border='1'><tr><th>Electricity Account Number</th> " + "<th>Account Holder Name</th>" + "<th>Account Holder Address</th>" + "<th>Bill Month</th>" +  "<th>Units</th>" + "<th>Payment Amount</th>" +"<th>Update</th><th>Remove</th></tr>";
+			
+				 String query = "select * from bill";
+				 Statement stmt = con.createStatement();
+				 ResultSet rs = stmt.executeQuery(query);
+				 
+				 // iterate through the rows in the result set
+				 while (rs.next())
+				 {
+					 String billID = Integer.toString(rs.getInt("billID"));
+					 String electricityAccountNo = rs.getString("electricityAccountNo");
+					 String accountHolderName = rs.getString("accountHolderName");
+					 String accountHolderAddress = rs.getString("accountHolderAddress");
+					 String billMonth = rs.getString("billMonth");
+					 String units = Double.toString(rs.getDouble("units"));
+					 String paymentAmount = Double.toString(rs.getDouble("paymentAmount"));
+					 
+				 // Add into the html table
+					 output += "<tr><td>" + electricityAccountNo + "</td>";
+					 output += "<td>" + accountHolderName + "</td>";
+					 output += "<td>" + accountHolderAddress + "</td>";
+					 output += "<td>" + billMonth + "</td>";
+					 output += "<td>" + units + "</td>";
+					 output += "<td>" + paymentAmount + "</td>";
+					 
+				 // buttons
+				 output += "<td><input name='btnUpdate' type='button' value='Update'class='btn btn-secondary'></td>"
+				 + "<td><form method='post' action='bills.jsp'>" + "<input name='btnRemove' type='submit' value='Remove'class='btn btn-danger'>"
+				 + "<input name='itemID' type='hidden' value='" + billID + "'>" + "</form></td></tr>";
+				 }
+				 
+				 con.close();
+				 // Complete the html table
+				 output += "</table>";
+				 }
+				 catch (Exception e)
+				 {
+					 output = "Error while reading the items.";
+					 System.err.println(e.getMessage());
+				 }
+				 return output;
+				 }
 }
