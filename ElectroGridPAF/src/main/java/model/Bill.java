@@ -27,9 +27,17 @@ public class Bill {
 		} 
 		
 		
-		public String insertBill(String electricityAccountNo, String accountHolderName, String accountHolderAddress, String billMonth, String paymentAmount)
+		public String insertBill(String electricityAccountNo, String accountHolderName, String accountHolderAddress, String billMonth, String units)
 		{ 
 			String output = ""; 
+			
+			//bill calculation
+			//Conversion of the String variable into double
+			double unit = Double.parseDouble(units);
+			double unitPrice = 50.00;
+			//calculation
+			double tot = unit*unitPrice;
+			String paymentAmount = Double.toString(tot);
 		
 			try
 			{ 
@@ -40,8 +48,8 @@ public class Bill {
 				} 
 				
 				// create a prepared statement
-				 String query = " insert into bill(`billID`,`electricityAccountNo`,`accountHolderName`,`accountHolderAddress`,`billMonth`, `paymentAmount`)"
-				 + " values (?, ?, ?, ?, ?, ?)"; 
+				 String query = " insert into bill(`billID`,`electricityAccountNo`,`accountHolderName`,`accountHolderAddress`,`billMonth`, `units`,`paymentAmount`)"
+				 + " values (?, ?, ?, ?, ?, ?, ?)"; 
 				 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		
 				 // binding values
@@ -50,7 +58,8 @@ public class Bill {
 				 preparedStmt.setString(3, accountHolderName); 
 				 preparedStmt.setString(4, accountHolderAddress);
 				 preparedStmt.setString(5, billMonth);
-				 preparedStmt.setDouble(6, Double.parseDouble(paymentAmount)); 
+				 preparedStmt.setDouble(6, Double.parseDouble(units));
+				 preparedStmt.setDouble(7, Double.parseDouble(paymentAmount)); 
 				 
 		
 				 //execute the statement
@@ -105,7 +114,7 @@ public class Bill {
 					 
 				 // buttons
 				 output += "<td><input name='btnUpdate' type='button' value='Update'class='btn btn-secondary'></td>"
-				 + "<td><form method='post' action='items.jsp'>" + "<input name='btnRemove' type='submit' value='Remove'class='btn btn-danger'>"
+				 + "<td><form method='post' action='bills.jsp'>" + "<input name='btnRemove' type='submit' value='Remove'class='btn btn-danger'>"
 				 + "<input name='itemID' type='hidden' value='" + billID + "'>" + "</form></td></tr>";
 				 }
 				 
@@ -120,5 +129,37 @@ public class Bill {
 				 }
 				 return output;
 				 } 
+		
+		public String deleteBill(String billID) {
+			
+			String output = "";
+			 try
+			 {
+			   Connection con = connect();
+			   if (con == null)
+			   {
+				   return "Error while connecting to the database for deleting."; 
+			   }
+			   
+			 // create a prepared statement
+			 String query = "delete from bill where billID=?";
+			 
+			 PreparedStatement preparedStmt = con.prepareStatement(query);
+			 
+			 // binding values
+			 preparedStmt.setInt(1, Integer.parseInt(billID));
+			 
+			 // execute the statement
+			 preparedStmt.execute();
+			 con.close();
+			 output = "Deleted successfully";
+			 }
+			 catch (Exception e)
+			 {
+				 output = "Error while deleting the bill.";
+				 System.err.println(e.getMessage());
+			 }
+			 return output;
+		}
 
 }
