@@ -16,18 +16,10 @@ import org.jsoup.parser.*;
 import org.jsoup.nodes.Document;
 
 @Path("/Bills")
+
 public class BillService {
-	
+
 	Bill bill = new Bill();
-	
-	@GET
-	@Path("/")
-	@Produces(MediaType.TEXT_HTML)
-	
-	public String readBills()
-	{
-		return bill.readBills();
-	}
 	
 	@POST
 	@Path("/")
@@ -44,22 +36,4 @@ public class BillService {
 	 String output = bill.insertBill(electricityAccountNo, accountHolderName, accountHolderAddress, billMonth, units);
 	 return output;
 	}
-	
-	
-	@DELETE
-	@Path("/")
-	@Consumes(MediaType.APPLICATION_XML)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteBill(String billData)
-	{
-	//Convert the input string to an XML document
-	 Document doc = Jsoup.parse(billData, "", Parser.xmlParser());
-
-	//Read the value from the element <billID>
-	 String billID = doc.select("billID").text();
-	 String output = bill.deleteBill(billID);
-	return output;
-	}
-	
-
 }
