@@ -42,8 +42,23 @@ public class BillService {
 	 @FormParam("units") String units
 	)
 	{
-	 String output = bill.insertBill(electricityAccountNo, accountHolderName, accountHolderAddress, billMonth, units);
-	 return output;
+		 String output = bill.insertBill(electricityAccountNo, accountHolderName, accountHolderAddress, billMonth, units);
+		 return output;
+	}
+	
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteBill(String billData)
+	{
+	//Convert the input string to an XML document
+	 Document doc = Jsoup.parse(billData, "", Parser.xmlParser());
+
+	//Read the value from the element <billID>
+	 String billID = doc.select("billID").text();
+	 String output = bill.deleteBill(billID);
+	return output;
 	}
 	
 }
