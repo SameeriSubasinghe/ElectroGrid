@@ -35,14 +35,15 @@ public class BillService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	
-	public String insertBill(@FormParam("electricityAccountNo") String electricityAccountNo,
+	public String insertBill( @FormParam("billCode") String billCode,
+	 @FormParam("electricityAccountNo") String electricityAccountNo,
 	 @FormParam("accountHolderName") String accountHolderName,
 	 @FormParam("accountHolderAddress") String accountHolderAddress,
 	 @FormParam("billMonth") String billMonth,
 	 @FormParam("units") String units
 	)
 	{
-		 String output = bill.insertBill(electricityAccountNo, accountHolderName, accountHolderAddress, billMonth, units);
+		 String output = bill.insertBill(billCode, electricityAccountNo, accountHolderName, accountHolderAddress, billMonth, units);
 		 return output;
 	}
 	

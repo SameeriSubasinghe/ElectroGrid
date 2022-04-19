@@ -28,7 +28,7 @@ public class Bill {
 		} 
 		
 		
-		public String insertBill(String electricityAccountNo, String accountHolderName, String accountHolderAddress, String billMonth, String units)
+		public String insertBill(String billCode, String electricityAccountNo, String accountHolderName, String accountHolderAddress, String billMonth, String units)
 		{ 
 			String output = ""; 
 			
@@ -49,18 +49,19 @@ public class Bill {
 				} 
 				
 				// create a prepared statement
-				 String query = " insert into bill(`billID`,`electricityAccountNo`,`accountHolderName`,`accountHolderAddress`,`billMonth`, `units`,`paymentAmount`)"
-				 + " values (?, ?, ?, ?, ?, ?, ?)"; 
+				 String query = " insert into bill( `billID`, `billCode`, `electricityAccountNo`,`accountHolderName`,`accountHolderAddress`,`billMonth`, `units`,`paymentAmount`)"
+				 + " values (?, ?, ?, ?, ?, ?, ?, ?)"; 
 				 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		
 				 // binding values
 				 preparedStmt.setInt(1, 0); 
-				 preparedStmt.setString(2, electricityAccountNo); 
-				 preparedStmt.setString(3, accountHolderName); 
-				 preparedStmt.setString(4, accountHolderAddress);
-				 preparedStmt.setString(5, billMonth);
-				 preparedStmt.setDouble(6, Double.parseDouble(units));
-				 preparedStmt.setDouble(7, Double.parseDouble(paymentAmount)); 
+				 preparedStmt.setString(2, billCode);
+				 preparedStmt.setString(3, electricityAccountNo); 
+				 preparedStmt.setString(4, accountHolderName); 
+				 preparedStmt.setString(5, accountHolderAddress);
+				 preparedStmt.setString(6, billMonth);
+				 preparedStmt.setDouble(7, Double.parseDouble(units));
+				 preparedStmt.setDouble(8, Double.parseDouble(paymentAmount)); 
 				 
 		
 				 //execute the statement
@@ -91,7 +92,7 @@ public class Bill {
 				 
 				 // Prepare the html table to be displayed
 				 
-				 output = "<table border='1'><tr><th>Electricity Account Number</th> " + "<th>Account Holder Name</th>" + "<th>Account Holder Address</th>" + "<th>Bill Month</th>" +  "<th>Units</th>" + "<th>Payment Amount</th>" +"<th>Update</th><th>Remove</th></tr>";
+				 output = "<table border='1'><tr><th>Bill Code</th> " + "<th>Electricity Account Number</th>" + "<th>Account Holder Name</th>" + "<th>Account Holder Address</th>" + "<th>Bill Month</th>" +  "<th>Units</th>" + "<th>Payment Amount</th>" +"<th>Update</th><th>Remove</th></tr>";
 			
 				 String query = "select * from bill";
 				 Statement stmt = con.createStatement();
@@ -101,6 +102,7 @@ public class Bill {
 				 while (rs.next())
 				 {
 					 String billID = Integer.toString(rs.getInt("billID"));
+					 String billCode = rs.getString("billCode");
 					 String electricityAccountNo = rs.getString("electricityAccountNo");
 					 String accountHolderName = rs.getString("accountHolderName");
 					 String accountHolderAddress = rs.getString("accountHolderAddress");
@@ -109,7 +111,8 @@ public class Bill {
 					 String paymentAmount = Double.toString(rs.getDouble("paymentAmount"));
 					 
 				 // Add into the html table
-					 output += "<tr><td>" + electricityAccountNo + "</td>";
+					 output += "<tr><td>" + billCode + "</td>";
+					 output += "<td>" + electricityAccountNo + "</td>";
 					 output += "<td>" + accountHolderName + "</td>";
 					 output += "<td>" + accountHolderAddress + "</td>";
 					 output += "<td>" + billMonth + "</td>";
