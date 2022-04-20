@@ -14,13 +14,13 @@ public class ODPaymentService {
  ODPayment ODPObj = new ODPayment(); 
  
  
-//@GET
-//@Path("/") 
-//@Produces(MediaType.TEXT_HTML) 
-//public String readODPayment() 
-// { 
-// return ODPObj.readODPayment(); 
-// } 
+@GET
+@Path("/") 
+@Produces(MediaType.TEXT_HTML) 
+public String readODPayment() 
+ { 
+ return ODPObj.readODPayment(); 
+ } 
 
 @POST
 @Path("/") 
