@@ -38,4 +38,19 @@ return output;
 }
 
 
+
+@DELETE
+@Path("/") 
+@Consumes(MediaType.APPLICATION_XML) 
+@Produces(MediaType.TEXT_PLAIN) 
+public String deleteODPayment(String ODPData) 
+{ 
+//Convert the input string to an XML document
+Document doc = Jsoup.parse(ODPData, "", Parser.xmlParser()); 
+
+//Read the value from the element <ODPaymentID>
+String ODPaymentID = doc.select("ODPaymentID").text(); 
+String output = ODPObj.deleteODPayment(ODPaymentID); 
+return output; 
+}
 }
