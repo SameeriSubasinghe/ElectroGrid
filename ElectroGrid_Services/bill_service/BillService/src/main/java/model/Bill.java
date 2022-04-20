@@ -28,7 +28,7 @@ public class Bill {
 		} 
 		
 		
-		public String insertBill(String billCode, String electricityAccountNo, String accountHolderName, String accountHolderAddress, String billMonth, String units)
+		public String insertBill(String billCode, String electricityAccountNo, String billMonth, String units)
 		{ 
 			String output = ""; 
 			
@@ -49,19 +49,17 @@ public class Bill {
 				} 
 				
 				// create a prepared statement
-				 String query = " insert into bill( `billID`, `billCode`, `electricityAccountNo`,`accountHolderName`,`accountHolderAddress`,`billMonth`, `units`,`paymentAmount`)"
-				 + " values (?, ?, ?, ?, ?, ?, ?, ?)"; 
+				 String query = " insert into bill( `billID`, `billCode`, `electricityAccountNo`,`billMonth`, `units`,`paymentAmount`)"
+				 + " values (?, ?, ?, ?, ?, ?)"; 
 				 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		
 				 // binding values
 				 preparedStmt.setInt(1, 0); 
 				 preparedStmt.setString(2, billCode);
 				 preparedStmt.setString(3, electricityAccountNo); 
-				 preparedStmt.setString(4, accountHolderName); 
-				 preparedStmt.setString(5, accountHolderAddress);
-				 preparedStmt.setString(6, billMonth);
-				 preparedStmt.setDouble(7, Double.parseDouble(units));
-				 preparedStmt.setDouble(8, Double.parseDouble(paymentAmount)); 
+				 preparedStmt.setString(4, billMonth);
+				 preparedStmt.setDouble(5, Double.parseDouble(units));
+				 preparedStmt.setDouble(6, Double.parseDouble(paymentAmount)); 
 				 
 		
 				 //execute the statement
@@ -92,7 +90,7 @@ public class Bill {
 				 
 				 // Prepare the html table to be displayed
 				 
-				 output = "<table border='1'><tr><th>Bill Code</th> " + "<th>Electricity Account Number</th>" + "<th>Account Holder Name</th>" + "<th>Account Holder Address</th>" + "<th>Bill Month</th>" +  "<th>Units</th>" + "<th>Payment Amount</th>" +"<th>Update</th><th>Remove</th></tr>";
+				 output = "<table border='1'><tr><th>Bill Code</th> " + "<th>Electricity Account Number</th>"  + "<th>Bill Month</th>" +  "<th>Units</th>" + "<th>Payment Amount</th>" +"<th>Update</th><th>Remove</th></tr>";
 			
 				 String query = "select * from bill";
 				 Statement stmt = con.createStatement();
@@ -104,8 +102,6 @@ public class Bill {
 					 String billID = Integer.toString(rs.getInt("billID"));
 					 String billCode = rs.getString("billCode");
 					 String electricityAccountNo = rs.getString("electricityAccountNo");
-					 String accountHolderName = rs.getString("accountHolderName");
-					 String accountHolderAddress = rs.getString("accountHolderAddress");
 					 String billMonth = rs.getString("billMonth");
 					 String units = Double.toString(rs.getDouble("units"));
 					 String paymentAmount = Double.toString(rs.getDouble("paymentAmount"));
@@ -113,8 +109,6 @@ public class Bill {
 				 // Add into the html table
 					 output += "<tr><td>" + billCode + "</td>";
 					 output += "<td>" + electricityAccountNo + "</td>";
-					 output += "<td>" + accountHolderName + "</td>";
-					 output += "<td>" + accountHolderAddress + "</td>";
 					 output += "<td>" + billMonth + "</td>";
 					 output += "<td>" + units + "</td>";
 					 output += "<td>" + paymentAmount + "</td>";
@@ -137,6 +131,53 @@ public class Bill {
 				 return output;
 				 }
 		
+		/*public String updateBill(String billID, String billCode, String electricityAccountNo, String billMonth, String units) {
+			
+			String output = "";
+			
+			//bill calculation
+			//Conversion of the String variable into double
+			double unit = Double.parseDouble(units);
+			double unitPrice = 50.00;
+			//calculation
+			double tot = unit*unitPrice;
+			String paymentAmount = Double.toString(tot);
+			 try
+			 {
+			   Connection con = connect();
+			   
+			   if (con == null)
+			   {
+				   return "Error while connecting to the database for updating."; 
+			   }
+			   
+			 // create a prepared statement
+			 String query = "UPDATE bill SET billCode=?, electricityAccountNo=?, billMonth=?, units=?, paymentAmount=? WHERE billID=?";
+			 
+			 PreparedStatement preparedStmt = con.prepareStatement(query);
+			 // binding values
+			 
+				 preparedStmt.setString(1, billCode);
+				 preparedStmt.setString(2, electricityAccountNo);
+				 preparedStmt.setString(5, billMonth);
+				 preparedStmt.setDouble(7, Double.parseDouble(units));
+				 preparedStmt.setDouble(7, Double.parseDouble(paymentAmount));
+				 preparedStmt.setInt(5, Integer.parseInt(billID));
+				 
+			    // execute the statement
+			 
+				 preparedStmt.execute();
+			     con.close();
+			     output = "Updated successfully";
+			 }
+			 
+			 catch (Exception e)
+			 {
+				 output = "Error while updating the item.";
+				 System.err.println(e.getMessage());
+			 }
+			 return output;
+		}*/
 		
        public String deleteBill(String billID) {
 			

@@ -21,6 +21,7 @@ public class BillService {
 
 	Bill bill = new Bill();
 	
+	//Read Bills
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
@@ -30,6 +31,7 @@ public class BillService {
 		return bill.readBills();
 	}
 	
+	//Insert Bills
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -37,16 +39,41 @@ public class BillService {
 	
 	public String insertBill( @FormParam("billCode") String billCode,
 	 @FormParam("electricityAccountNo") String electricityAccountNo,
-	 @FormParam("accountHolderName") String accountHolderName,
-	 @FormParam("accountHolderAddress") String accountHolderAddress,
 	 @FormParam("billMonth") String billMonth,
 	 @FormParam("units") String units
 	)
 	{
-		 String output = bill.insertBill(billCode, electricityAccountNo, accountHolderName, accountHolderAddress, billMonth, units);
+		 String output = bill.insertBill(billCode, electricityAccountNo,  billMonth, units);
 		 return output;
 	}
 	
+	/*
+	//Update Bills
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateBill(String billData)
+	{
+		//Convert the input string to a JSON object
+		 JsonObject billObject = new JsonParser().parse(billData).getAsJsonObject(); 
+		 
+		//Read the values from the JSON object
+		 String billID = billObject.get("billID").getAsString();
+		 String billCode = billObject.get("billCode").getAsString();
+		 String electricityAccountNo = billObject.get("electricityAccountNo").getAsString();
+		 String accountHolderName = billObject.get("accountHolderName").getAsString();
+		 String accountHolderAddress = billObject.get("accountHolderAddress").getAsString();
+		 String billMonth = billObject.get("billMonth").getAsString();
+		 String units = billObject.get("units").getAsString();
+		 
+		 String output = bill.updateBill(billID, billCode, electricityAccountNo, accountHolderName, accountHolderAddress, billMonth, units);
+		 
+		return output;
+	}*/
+	
+	
+	//Delete bills
 	@DELETE
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_XML)
