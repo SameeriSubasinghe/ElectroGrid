@@ -39,6 +39,26 @@ return output;
 
 
 
+@PUT
+@Path("/") 
+@Consumes(MediaType.APPLICATION_JSON) 
+@Produces(MediaType.TEXT_PLAIN) 
+public String updateODPayment(String ODPData) 
+{ 
+//Convert the input string to a JSON object 
+JsonObject ODPObject = new JsonParser().parse(ODPData).getAsJsonObject(); 
+//Read the values from the JSON object
+String ODPaymentID = ODPObject.get("ODPaymentID").getAsString(); 
+String ODCode = ODPObject.get("ODCode").getAsString(); 
+String dueAmount = ODPObject.get("dueAmount").getAsString(); 
+String dueMonthsNo = ODPObject.get("dueMonthsNo").getAsString(); 
+String dueMonths = ODPObject.get("dueMonths").getAsString(); 
+String accountNo = ODPObject.get("accountNo").getAsString(); 
+String output =ODPObj.updateODPayment(ODPaymentID, ODCode, dueAmount, dueMonthsNo, dueMonths, accountNo); 
+return output; 
+}
+
+
 @DELETE
 @Path("/") 
 @Consumes(MediaType.APPLICATION_XML) 
@@ -53,4 +73,10 @@ String ODPaymentID = doc.select("ODPaymentID").text();
 String output = ODPObj.deleteODPayment(ODPaymentID); 
 return output; 
 }
+
+
+
+
+
+
 }

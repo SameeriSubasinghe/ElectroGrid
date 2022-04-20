@@ -123,6 +123,48 @@ public class ODPayment {
 	
 	
 	
+	
+	//Update Overdue Payments from the DB
+	
+	public String updateODPayment(String ID, String overdueCode, String totDueAmount, String NoDueMonths, String months, String accNo)
+	{ 
+		 String output = ""; 
+		 try
+		 { 
+		 Connection con = connect(); 
+		 if (con == null) 
+		 {return "Error while connecting to the database for updating."; } 
+		 // create a prepared statement
+		 String query = "UPDATE odpayments SET ODCode=?,dueAmount=?,dueMonthsNo=?,dueMonths=?,accountNo=?WHERE ODPaymentID=?"; 
+		 PreparedStatement preparedStmt = con.prepareStatement(query); 
+		 // binding values
+		 preparedStmt.setString(1, overdueCode);
+		 preparedStmt.setDouble(2, Double.parseDouble(totDueAmount));
+		 preparedStmt.setInt(3, Integer.parseInt(NoDueMonths));
+		 preparedStmt.setString(4, months); 
+		 preparedStmt.setString(5, accNo); 
+		 preparedStmt.setInt(6, Integer.parseInt(ID));
+		 
+		 // execute the statement
+		 preparedStmt.execute(); 
+		 con.close(); 
+		 output = "Updated successfully"; 
+		 } 
+		 catch (Exception e) 
+		 { 
+		 output = "Error while updating the Overdue Payment."; 
+		 System.err.println(e.getMessage()); 
+		 } 
+		 return output; 
+		 } 
+	
+	
+
+	
+	
+	
+	
+	
   //Deleting Overdue Payments 
 	
   public String deleteODPayment(String ODPaymentID) 
