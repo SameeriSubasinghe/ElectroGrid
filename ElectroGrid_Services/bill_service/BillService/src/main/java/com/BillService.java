@@ -47,7 +47,7 @@ public class BillService {
 		 return output;
 	}
 	
-	/*
+	
 	//Update Bills
 	@PUT
 	@Path("/")
@@ -62,15 +62,13 @@ public class BillService {
 		 String billID = billObject.get("billID").getAsString();
 		 String billCode = billObject.get("billCode").getAsString();
 		 String electricityAccountNo = billObject.get("electricityAccountNo").getAsString();
-		 String accountHolderName = billObject.get("accountHolderName").getAsString();
-		 String accountHolderAddress = billObject.get("accountHolderAddress").getAsString();
 		 String billMonth = billObject.get("billMonth").getAsString();
 		 String units = billObject.get("units").getAsString();
 		 
-		 String output = bill.updateBill(billID, billCode, electricityAccountNo, accountHolderName, accountHolderAddress, billMonth, units);
+		 String output = bill.updateBill(billID, billCode, electricityAccountNo, billMonth, units);
 		 
 		return output;
-	}*/
+	}
 	
 	
 	//Delete bills

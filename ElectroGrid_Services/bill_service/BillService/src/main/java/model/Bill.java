@@ -131,7 +131,8 @@ public class Bill {
 				 return output;
 				 }
 		
-		/*public String updateBill(String billID, String billCode, String electricityAccountNo, String billMonth, String units) {
+		//Update bill method
+		public String updateBill(String billID, String billCode, String electricityAccountNo, String billMonth, String units) {
 			
 			String output = "";
 			
@@ -159,10 +160,10 @@ public class Bill {
 			 
 				 preparedStmt.setString(1, billCode);
 				 preparedStmt.setString(2, electricityAccountNo);
-				 preparedStmt.setString(5, billMonth);
-				 preparedStmt.setDouble(7, Double.parseDouble(units));
-				 preparedStmt.setDouble(7, Double.parseDouble(paymentAmount));
-				 preparedStmt.setInt(5, Integer.parseInt(billID));
+				 preparedStmt.setString(3, billMonth);
+				 preparedStmt.setDouble(4, Double.parseDouble(units));
+				 preparedStmt.setDouble(5, Double.parseDouble(paymentAmount));
+				 preparedStmt.setInt(6, Integer.parseInt(billID));
 				 
 			    // execute the statement
 			 
@@ -177,7 +178,7 @@ public class Bill {
 				 System.err.println(e.getMessage());
 			 }
 			 return output;
-		}*/
+		}
 		
        public String deleteBill(String billID) {
 			
