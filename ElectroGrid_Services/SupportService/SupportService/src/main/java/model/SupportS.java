@@ -116,62 +116,68 @@
 	return output;
 	}
 	
-////UpdateDetails
-//	
-//public String updateItem(String ID, String code, String name, String price, String desc)
-//{
-//String output = "";
-//try
-//{
-//Connection con = connect();
-//if (con == null)
-//{return "Error while connecting to the database for updating."; }
-//// create a prepared statement
-//String query = "UPDATE items SET itemCode=?,itemName=?,itemPrice=?,itemDesc=?WHERE itemID=?";
-//PreparedStatement preparedStmt = con.prepareStatement(query);
-//// binding values
-//preparedStmt.setString(1, code);
-//preparedStmt.setString(2, name);
-//preparedStmt.setDouble(3, Double.parseDouble(price));
-//preparedStmt.setString(4, desc);
-//preparedStmt.setInt(5, Integer.parseInt(ID));
-//// execute the statement
-//preparedStmt.execute();
-//con.close();
-//output = "Updated successfully";
-//}
-//catch (Exception e)
-//{
-//output = "Error while updating the item.";
-//System.err.println(e.getMessage());
-//}
-//return output;
-//}
-//
-//// Delete Details
-//public String deleteItem(String itemID)
-//{
-//String output = "";
-//try
-//{
-//Connection con = connect();
-//if (con == null)
-//{return "Error while connecting to the database for deleting."; }
-//// create a prepared statement
-//String query = "delete from items where itemID=?";
-//PreparedStatement preparedStmt = con.prepareStatement(query);
-//// binding values
-//preparedStmt.setInt(1, Integer.parseInt(itemID));
-//// execute the statement
-//preparedStmt.execute();
-//con.close();
-//output = "Deleted successfully";
-//}
-//catch (Exception e)
-//{
-//output = "Error while deleting the item.";
-//System.err.println(e.getMessage());
-//}
-//return output;
-//}
+		//accountNum, String name, String address, String phoneNum , String email, String complaint
+		
+		public String updateComplaints(String ID, String accountNum, String name, String address,  String phoneNum,String email, String complaint)
+		{
+		String output = "";
+		try
+		{
+		Connection con = connect();
+		if (con == null)
+		{return "Error while connecting to the database for updating."; }
+		// create a prepared statement
+		String query = "UPDATE complaints SET accountNum=?,complaintName=?,complaintAdd=? ,complaintPhone=?,complaintEmail=?,complaintMessage=?WHERE complaintID=?";
+		PreparedStatement preparedStmt = con.prepareStatement(query);
+		
+		// binding values
+		preparedStmt.setString(1, accountNum);
+		preparedStmt.setString(2, name);
+		preparedStmt.setString(3,address);
+		preparedStmt.setString(4, phoneNum);
+		preparedStmt.setString(5, email);
+		preparedStmt.setString(6,complaint);
+		preparedStmt.setInt(7, Integer.parseInt(ID));
+		
+		// execute the statement
+		preparedStmt.execute();
+		con.close();
+		output = "Updated successfully";
+		}
+		catch (Exception e)
+		{
+		output = "Error while updating the item.";
+		System.err.println(e.getMessage());
+		}
+		return output;
+		}
+	
+	
+	
+	// Delete Complaints
+	public String deleteComplaint(String complaintID)
+	{
+	String output = "";
+	try
+	{
+	Connection con = connect();
+	if (con == null)
+	{return "Error while connecting to the database for deleting."; }
+	// create a prepared statement
+	String query = "delete from complaints where complaintID=?";
+	PreparedStatement preparedStmt = con.prepareStatement(query);
+	// binding values
+	preparedStmt.setInt(1, Integer.parseInt(complaintID));
+	// execute the statement
+	preparedStmt.execute();
+	con.close();
+	output = "Deleted successfully";
+	}
+	catch (Exception e)
+	{
+	output = "Error while deleting the item.";
+	System.err.println(e.getMessage());
+	}
+	return output;
+	}
 }
