@@ -31,9 +31,12 @@ public String insertODPayment(
   @FormParam("dueAmount") String dueAmount, 
   @FormParam("dueMonthsNo") Integer dueMonthsNo, 
   @FormParam("dueMonths") String dueMonths,
-  @FormParam("accountNo") String accountNo) 
+  @FormParam("accountNo") String accountNo,
+  @FormParam("IsSuspend") Boolean IsSuspend
+  ) 
+
 { 
- String output = ODPObj.insertODPayment(ODCode, dueAmount, dueMonthsNo, dueMonths,accountNo); 
+ String output = ODPObj.insertODPayment(ODCode, dueAmount, dueMonthsNo, dueMonths,accountNo,IsSuspend); 
 return output; 
 }
 
@@ -45,8 +48,11 @@ return output;
 @Produces(MediaType.TEXT_PLAIN) 
 public String updateODPayment(String ODPData) 
 { 
+	
 //Convert the input string to a JSON object 
 JsonObject ODPObject = new JsonParser().parse(ODPData).getAsJsonObject(); 
+
+
 //Read the values from the JSON object
 String ODPaymentID = ODPObject.get("ODPaymentID").getAsString(); 
 String ODCode = ODPObject.get("ODCode").getAsString(); 
@@ -54,7 +60,8 @@ String dueAmount = ODPObject.get("dueAmount").getAsString();
 String dueMonthsNo = ODPObject.get("dueMonthsNo").getAsString(); 
 String dueMonths = ODPObject.get("dueMonths").getAsString(); 
 String accountNo = ODPObject.get("accountNo").getAsString(); 
-String output =ODPObj.updateODPayment(ODPaymentID, ODCode, dueAmount, dueMonthsNo, dueMonths, accountNo); 
+String IsSuspend = ODPObject.get("IsSuspend").getAsString();
+String output =ODPObj.updateODPayment(ODPaymentID, ODCode, dueAmount, dueMonthsNo, dueMonths, accountNo,IsSuspend); 
 return output; 
 }
 
@@ -63,6 +70,8 @@ return output;
 @Path("/") 
 @Consumes(MediaType.APPLICATION_XML) 
 @Produces(MediaType.TEXT_PLAIN) 
+
+
 public String deleteODPayment(String ODPData) 
 { 
 //Convert the input string to an XML document
