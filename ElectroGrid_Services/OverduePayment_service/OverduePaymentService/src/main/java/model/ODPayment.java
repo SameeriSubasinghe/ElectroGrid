@@ -153,7 +153,6 @@ public class ODPayment {
 		 preparedStmt.setInt(3, Integer.parseInt(NoDueMonths));
 		 preparedStmt.setString(4, months); 
 		 preparedStmt.setString(5, accNo); 
-		 //preparedStmt.setBoolean(6, suspend);
 		 preparedStmt.setBoolean(6, Boolean.parseBoolean(suspend));
 		 preparedStmt.setInt(7, Integer.parseInt(ID));
 		 
