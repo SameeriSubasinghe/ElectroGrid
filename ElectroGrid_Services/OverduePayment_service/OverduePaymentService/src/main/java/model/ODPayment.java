@@ -24,17 +24,19 @@ public class ODPayment {
 	
  //Inserting an Overdue Payment
 	
- public String insertODPayment(String overdueCode, String totDueAmount, Integer NoDueMonths, String months, String accNo) 
+ public String insertODPayment(String overdueCode, String totDueAmount, Integer NoDueMonths, String months, String accNo, Boolean suspend) 
 	 { 
 	 String output = ""; 
 	 try
 	 { 
 	 Connection con = connect(); 
 	 if (con == null) 
-	 {return "Error while connecting to the electrogrid database for inserting."; } 
+	 {return "Error while connecting to the electrogrid database for inserting."; }
+	 
+	 
 	 // create a prepared statement
-	 String query = " insert into odPayments(`ODPaymentID`, `ODCode`, `dueAmount`, `dueMonthsNo`, `dueMonths`, `accountNo`)"
-	 + " values (?, ?, ?, ?, ?, ?)"; 
+	 String query = " insert into odPayments(`ODPaymentID`, `ODCode`, `dueAmount`, `dueMonthsNo`, `dueMonths`, `accountNo`, `IsSuspend`)"
+	 + " values (?, ?, ?, ?, ?, ?, ? )"; 
 	 PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 
 	 
@@ -45,6 +47,7 @@ public class ODPayment {
 	 preparedStmt.setInt(4, NoDueMonths); 
 	 preparedStmt.setString(5, months);
 	 preparedStmt.setString(6, accNo);
+	 preparedStmt.setBoolean(7, suspend);
 	 
 	 
 	 // execute the statement
@@ -80,6 +83,7 @@ public class ODPayment {
 	 "<th>No of Due months</th>" + 
 	 "<th>Due months</th>" +
 	 "<th>Account No</th>" +
+	 "<th>Suspend or Not</th>" +
 	 "<th>Update</th><th>Remove</th></tr>"; 
 	 
 	 String query = "select * from odPayments"; 
@@ -94,7 +98,8 @@ public class ODPayment {
 	 String dueAmount = Double.toString(rs.getDouble("dueAmount")); 
 	 String dueMonthsNo = Integer.toString(rs.getInt("dueMonthsNo")); 
 	 String dueMonths = rs.getString("dueMonths");
-	 String accountNo = rs.getString("accountNo"); 
+	 String accountNo = rs.getString("accountNo");
+	 String IsSuspend = Boolean.toString(rs.getBoolean("IsSuspend"));
 	 
 	 // Add into the html table
 	 output += "<tr><td>" + ODCode + "</td>"; 
@@ -102,6 +107,7 @@ public class ODPayment {
 	 output += "<td>" + dueMonthsNo + "</td>"; 
 	 output += "<td>" + dueMonths + "</td>"; 
 	 output += "<td>" + accountNo + "</td>"; 
+	 output += "<td>" + IsSuspend + "</td>"; 
 	 
 	 // buttons
 	 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
@@ -126,24 +132,31 @@ public class ODPayment {
 	
 	//Update Overdue Payments from the DB
 	
-	public String updateODPayment(String ID, String overdueCode, String totDueAmount, String NoDueMonths, String months, String accNo)
+	public String updateODPayment(String ID, String overdueCode, String totDueAmount, String NoDueMonths, String months, String accNo, String suspend)
 	{ 
 		 String output = ""; 
 		 try
 		 { 
 		 Connection con = connect(); 
 		 if (con == null) 
-		 {return "Error while connecting to the database for updating."; } 
-		 // create a prepared statement
-		 String query = "UPDATE odpayments SET ODCode=?,dueAmount=?,dueMonthsNo=?,dueMonths=?,accountNo=?WHERE ODPaymentID=?"; 
+		 {return "Error while connecting to the database for updating.";
+		 } 
+		 
+		 
+		 // create a prepared statement to update
+		 String query = "UPDATE odpayments SET ODCode=?,dueAmount=?,dueMonthsNo=?,dueMonths=?,accountNo=?,IsSuspend=? WHERE ODPaymentID=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
+		 
 		 // binding values
 		 preparedStmt.setString(1, overdueCode);
 		 preparedStmt.setDouble(2, Double.parseDouble(totDueAmount));
 		 preparedStmt.setInt(3, Integer.parseInt(NoDueMonths));
 		 preparedStmt.setString(4, months); 
 		 preparedStmt.setString(5, accNo); 
-		 preparedStmt.setInt(6, Integer.parseInt(ID));
+		 //preparedStmt.setBoolean(6, suspend);
+		 preparedStmt.setBoolean(6, Boolean.parseBoolean(suspend));
+		 preparedStmt.setInt(7, Integer.parseInt(ID));
+		 
 		 
 		 // execute the statement
 		 preparedStmt.execute(); 
