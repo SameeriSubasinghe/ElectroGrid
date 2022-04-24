@@ -24,7 +24,7 @@ public class ODPayment {
 	
  //Inserting an Overdue Payment
 	
- public String insertODPayment(String overdueCode, String totDueAmount, Integer NoDueMonths, String months, String accNo, Boolean suspend) 
+ public String insertODPayment(String overdueCode, String totDueAmount, Integer noDueMonths, String months, String accNo, Boolean suspend) 
 	 { 
 	 String output = ""; 
 	 try
@@ -44,7 +44,7 @@ public class ODPayment {
 	 preparedStmt.setInt(1, 0); 
 	 preparedStmt.setString(2, overdueCode); 
 	 preparedStmt.setDouble(3, Double.parseDouble(totDueAmount)); 
-	 preparedStmt.setInt(4, NoDueMonths); 
+	 preparedStmt.setInt(4, noDueMonths); 
 	 preparedStmt.setString(5, months);
 	 preparedStmt.setString(6, accNo);
 	 preparedStmt.setBoolean(7, suspend);
@@ -58,7 +58,7 @@ public class ODPayment {
 	 } 
 	 catch (Exception e) 
 	 { 
-	 output = "Error while inserting the Overdue Payement."; 
+	 output = "Error while inserting the Overdue Payment."; 
 	 System.err.println(e.getMessage()); 
 	 } 
 	 return output; 
@@ -132,7 +132,7 @@ public class ODPayment {
 	
 	//Update Overdue Payments from the DB
 	
-	public String updateODPayment(String ID, String overdueCode, String totDueAmount, String NoDueMonths, String months, String accNo, String suspend)
+	public String updateODPayment(String ID, String overdueCode, String totDueAmount, String noDueMonths, String months, String accNo, String suspend)
 	{ 
 		 String output = ""; 
 		 try
@@ -150,10 +150,9 @@ public class ODPayment {
 		 // binding values
 		 preparedStmt.setString(1, overdueCode);
 		 preparedStmt.setDouble(2, Double.parseDouble(totDueAmount));
-		 preparedStmt.setInt(3, Integer.parseInt(NoDueMonths));
+		 preparedStmt.setInt(3, Integer.parseInt(noDueMonths));
 		 preparedStmt.setString(4, months); 
 		 preparedStmt.setString(5, accNo); 
-		 //preparedStmt.setBoolean(6, suspend);
 		 preparedStmt.setBoolean(6, Boolean.parseBoolean(suspend));
 		 preparedStmt.setInt(7, Integer.parseInt(ID));
 		 
