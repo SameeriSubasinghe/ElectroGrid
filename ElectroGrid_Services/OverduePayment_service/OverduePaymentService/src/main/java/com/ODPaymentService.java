@@ -36,8 +36,7 @@ public String insertODPayment(
   ) 
 
 { 
- String output = ODPObj.insertODPayment(ODCode, dueAmount, dueMonthsNo, dueMonths,accountNo,IsSuspend); 
-return output; 
+ return ODPObj.insertODPayment(ODCode, dueAmount, dueMonthsNo, dueMonths,accountNo,IsSuspend); 
 }
 
 
@@ -61,8 +60,7 @@ String dueMonthsNo = ODPObject.get("dueMonthsNo").getAsString();
 String dueMonths = ODPObject.get("dueMonths").getAsString(); 
 String accountNo = ODPObject.get("accountNo").getAsString(); 
 String IsSuspend = ODPObject.get("IsSuspend").getAsString();
-String output =ODPObj.updateODPayment(ODPaymentID, ODCode, dueAmount, dueMonthsNo, dueMonths, accountNo,IsSuspend); 
-return output; 
+return ODPObj.updateODPayment(ODPaymentID, ODCode, dueAmount, dueMonthsNo, dueMonths, accountNo,IsSuspend); 
 }
 
 
@@ -79,8 +77,7 @@ Document doc = Jsoup.parse(ODPData, "", Parser.xmlParser());
 
 //Read the value from the element <ODPaymentID>
 String ODPaymentID = doc.select("ODPaymentID").text(); 
-String output = ODPObj.deleteODPayment(ODPaymentID); 
-return output; 
+return ODPObj.deleteODPayment(ODPaymentID); 
 }
 
 
