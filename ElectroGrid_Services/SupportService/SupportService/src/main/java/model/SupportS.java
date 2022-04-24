@@ -110,7 +110,7 @@
 	}
 	catch (Exception e)
 	{
-	output = "Error while reading the items.";
+	output = "Error while reading the complaints.";
 	System.err.println(e.getMessage());
 	}
 	return output;
@@ -146,7 +146,7 @@
 		}
 		catch (Exception e)
 		{
-		output = "Error while updating the item.";
+		output = "Error while updating the complaint.";
 		System.err.println(e.getMessage());
 		}
 		return output;
@@ -175,7 +175,7 @@
 	}
 	catch (Exception e)
 	{
-	output = "Error while deleting the item.";
+	output = "Error while deleting the complaint.";
 	System.err.println(e.getMessage());
 	}
 	return output;
