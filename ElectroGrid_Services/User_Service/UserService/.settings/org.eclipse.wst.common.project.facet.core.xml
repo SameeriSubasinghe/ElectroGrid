@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <runtime name="Apache Tomcat v9.0"/>
+<<<<<<<< HEAD:ElectroGrid_Services/User_Service/UserService/.settings/org.eclipse.wst.common.project.facet.core.xml
+  <fixed facet="java"/>
+========
+>>>>>>>> a9307d085f4b637ee22d02a4fb2052f2ae40d3c3:ElectroGrid_Services/UserService/.settings/org.eclipse.wst.common.project.facet.core.xml
+  <fixed facet="jst.web"/>
+  <fixed facet="wst.jsdt.web"/>
+  <fixed facet="java"/>
+  <installed facet="java" version="1.8"/>
+  <installed facet="jst.web" version="4.0"/>
+  <installed facet="wst.jsdt.web" version="1.0"/>
+  <installed facet="jst.jaxrs" version="1.1"/>
+</faceted-project>
